@@ -25,16 +25,16 @@
         <ul>
           <li
             v-for="member in members"
-            :key="member.user_id"
+            :key="member.userId"
             class="flex bg-white rounded shadow-lg items-center px-4 py-3 mb-2 text-lg font-serif"
           >
-            {{ member.user_name }}
+            {{ member.userName }}
             <span
-              v-if="member.user_id == userId"
+              v-if="member.userId == userId"
               class="ml-2 bg-red-600 text-white uppercase font-bold text-serif p-2 text-xs"
             >YOU</span>
 
-            <span v-if="member.is_channel_creator" class="ml-2">
+            <span v-if="member.isCreator" class="ml-2">
               <icon icon="crown" class="text-2xl text-yellow-600"></icon>
             </span>
           </li>
@@ -55,6 +55,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import startGame from '@/actions/startGame';
 
 export default {
   computed: {
@@ -72,13 +73,7 @@ export default {
     },
 
     startGame() {
-      this.$http
-        .post('/game/start', {
-          channelName: this.$route.params.id,
-        })
-        .then((res) => {
-          console.log('starting game');
-        });
+      startGame();
     },
   },
 };

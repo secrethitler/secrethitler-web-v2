@@ -67,7 +67,7 @@ export default {
       this.joining = true;
 
       try {
-        joinGame(this.userNamem, this.channelName);
+        joinGame(this.userName, this.channelName);
       } catch (e) {
         this.error = e;
         this.joining = false;

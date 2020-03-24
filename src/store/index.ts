@@ -1,17 +1,24 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersistence from 'vuex-persist';
 
-import { StoreRootState } from '@/types/game';
+import { StoreRootState, GameState } from '@/types/game';
 import game from './game';
 import connections from './connections';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store<StoreRootState>({
+const vuexLocal = new VuexPersistence<GameState>({
+  storage: window.localStorage,
+});
+
+export default new Vuex.Store<GameState>({
   strict: true,
 
   modules: {
     game,
-    connections,
+    // connections,
   },
+
+  plugins: [vuexLocal.plugin],
 });

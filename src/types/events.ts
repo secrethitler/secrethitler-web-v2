@@ -53,7 +53,12 @@ export type GameStart = {
   userId: UserID,
   roleId: number,
   roleName: Role,
-  userName: string
+  userName: string,
+  partyMembers?: {
+    userId: UserID,
+    userName: string,
+    roleName: Role
+  }[]
 }
 
 // channel

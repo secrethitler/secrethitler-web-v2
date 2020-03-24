@@ -3,11 +3,12 @@ import {
   GameState, StoreRootState, Member, Round, Action, Role, UserID, Vote, Policy,
 } from '@/types/game';
 import { GameCreateResponse, GameJoinResponse } from '@/types/http';
+import { GameStart } from '@/types/events';
 
 export enum mutations {
   INIT_GAME = 'initGame',
   SET_MEMBERS = 'setMembers',
-  SET_ROLE = 'setRole',
+  START_GAME = 'startGame',
   SET_NOMINATED_CHANCELLOR = 'setNominatedChancellor',
   SET_NEXT_ROUND = 'setNextRound',
   ADD_VOTE = 'addVote',
@@ -42,18 +43,25 @@ const gameStore: Module<GameState, StoreRootState> = {
     userId: state => state.userId,
     token: state => state.token,
     channelName: state => state.channelName,
+    members: state => state.members,
 
     you(state: GameState): Member | undefined {
       return state.members.find(member => member.userId === state.userId);
+    },
+    creator(state: GameState): Member | undefined {
+      return state.members.find(member => member.userId === state.creatorId);
+    },
+    isCreator(state: GameState) {
+      return state.userId === state.creatorId;
     },
     activeRound(state: GameState): Round | undefined {
       return state.rounds[state.activeRound];
     },
     president(state: GameState, getters): Member | undefined {
-      return state.members.find(member => member.userId === getters.activeRound.president);
+      return state.members.find(member => member.userId === getters.activeRound?.presidentId);
     },
     chancellor(state: GameState, getters): Member | undefined {
-      return state.members.find(member => member.userId === getters.activeRound.chancellor);
+      return state.members.find(member => member.userId === getters.activeRound?.chancellorId);
     },
   },
 
@@ -63,25 +71,27 @@ const gameStore: Module<GameState, StoreRootState> = {
       state.channelName = payload.channelName;
       state.userId = payload.userId;
       state.creatorId = payload.creatorId;
+      state.members = [];
     },
 
     [mutations.SET_MEMBERS](state: GameState, members: Member[]) {
       state.members = members;
     },
 
-    [mutations.SET_ROLE](state: GameState, role: Role) {
-      state.role = role;
+    [mutations.START_GAME](state: GameState, event: GameStart) {
+      state.role = event.roleName;
+      state.partyMembers = event.partyMembers?.map(member => ({ userId: member.userId, userName: member.userName, role: member.roleName }));
     },
 
     [mutations.SET_NOMINATED_CHANCELLOR](state: GameState, chancellorId: UserID) {
-      state.rounds[state.activeRound].chancellor = chancellorId;
+      state.rounds[state.activeRound].chancellorId = chancellorId;
     },
 
     [mutations.SET_NEXT_ROUND](state: GameState, presidentId: UserID) {
       state.activeRound += 1;
       state.rounds.push({
-        president: presidentId,
-        chancellor: null,
+        presidentId,
+        chancellorId: null,
         chancellorElected: false,
         enactedPolicy: false,
         votes: [],

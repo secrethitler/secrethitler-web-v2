@@ -20,6 +20,16 @@ export type GameJoinRequest = {
   channelName:ChannelName,
 }
 
+// POST: /game/start
+export type GameStartRequest = {
+  userId: UserID,
+  channelName: ChannelName
+}
+
+export type GameStartResponse = {
+
+}
+
 export type GameJoinResponse = {
   channelName: ChannelName,
   userId: UserID,

@@ -16,7 +16,7 @@ instance.interceptors.request.use((config) => {
 
   if (token && userId && channelName) {
     // eslint-disable-next-line no-param-reassign
-    config.headers.Authorization = `Basic ${token}`;
+    config.headers.Authorization = `Basic ${btoa(token)}`;
 
     if (config.method === 'post') {
       config.data = {

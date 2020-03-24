@@ -5,7 +5,16 @@ export type UserID = number;
 export type Member = {
   userId: UserID
   userName: string,
-  userRole?: Role
+  userRole?: Role,
+  isCreator?: boolean
+}
+
+export type PusherMember = {
+  id: UserID,
+  info: {
+    isChannelCreator: boolean,
+    userName: string
+  }
 }
 
 export type ChannelName = string;
@@ -48,8 +57,8 @@ type Secret = {
 }
 
 export type Round = {
-  president: UserID,
-  chancellor: null | UserID,
+  presidentId: UserID,
+  chancellorId: null | UserID,
   chancellorElected: boolean,
   enactedPolicy: false | Policy,
   votes: Vote[],
@@ -68,6 +77,11 @@ export type GameState = {
   electionTracker: number,
 
   members: Member[],
+  partyMembers?: {
+    userId: UserID,
+    userName: string,
+    role: Role
+  }[],
   rounds: Round[],
   killed: UserID[],
 

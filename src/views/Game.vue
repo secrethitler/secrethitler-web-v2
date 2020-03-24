@@ -10,11 +10,12 @@ import { registerHandlers, connectChannels } from '@/actions/handlers';
 
 export default Vue.extend({
   created() {
-    connectChannels(
+    const channels = connectChannels(
       this.$store.getters.channelName,
       this.$store.getters.userId,
     );
-    registerHandlers();
+
+    registerHandlers(channels);
   },
 });
 </script>

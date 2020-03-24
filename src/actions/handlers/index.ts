@@ -1,8 +1,11 @@
-import store from '@/store';
-import { ConnectionsState, UserID, ChannelName } from '@/types/game';
+import {
+  UserID, ChannelName, Member, PusherMember,
+} from '@/types/game';
 import pusher from '@/plugins/pusher';
 import { Events } from '@/types/events';
-import membersChanged from './membersChanged';
+import { Channel, PresenceChannel, Members } from 'pusher-js';
+import store from '@/store';
+import { mutations } from '@/store/game';
 import gameStart from './gameStart';
 import nextRound from './nextRound';
 import chancellorNominated from './chancellorNominated';
@@ -16,42 +19,61 @@ import policyPeek from './policyPeek';
 import specialElection from './specialElection';
 import loyaltyInvestigation from './loyaltyInvestigation';
 
-export const registerHandlers = () => {
-  const { channel, presence, priv } = store.getters as ConnectionsState;
+interface Channels {
+  channel: Channel,
+  priv: Channel,
+  presence: PresenceChannel
+}
 
-  // Presence handlers
-  presence?.bind('pusher:subscription_succeeded', membersChanged);
-  presence?.bind('pusher:member_removed', membersChanged);
-  presence?.bind('pusher:member_removed', membersChanged);
+export const registerHandlers = (channels: Channels) => {
+  const { channel, priv } = channels;
 
   // Private handlers
-  priv?.bind(Events.GameStart, gameStart);
-  priv?.bind(Events.NotifyPresident, notifyPresident);
-  priv?.bind(Events.ChancellorReceivePolicies, chancellorReceivePolicies);
-  priv?.bind(Events.PresidentReceivePolicies, presidentReceivePolicies);
-  priv?.bind(Events.ExecutePlayer, executePlayer);
-  priv?.bind(Events.PolicyPeek, policyPeek);
-  priv?.bind(Events.SpecialElection, specialElection);
-  priv?.bind(Events.LoyaltyInvestigation, loyaltyInvestigation);
+  priv.bind(Events.GameStart, gameStart);
+  priv.bind(Events.NotifyPresident, notifyPresident);
+  priv.bind(Events.ChancellorReceivePolicies, chancellorReceivePolicies);
+  priv.bind(Events.PresidentReceivePolicies, presidentReceivePolicies);
+  priv.bind(Events.ExecutePlayer, executePlayer);
+  priv.bind(Events.PolicyPeek, policyPeek);
+  priv.bind(Events.SpecialElection, specialElection);
+  priv.bind(Events.LoyaltyInvestigation, loyaltyInvestigation);
 
   // Global handlers
-  channel?.bind(Events.NextRound, nextRound);
-  channel?.bind(Events.ChancellorNominated, chancellorNominated);
-  channel?.bind(Events.ChancellorVote, chancellorVote);
-  channel?.bind(Events.ChancellorElected, chancellorVote);
-  channel?.bind(Events.ElectionTracker, electionTracker);
+  channel.bind(Events.NextRound, nextRound);
+  channel.bind(Events.ChancellorNominated, chancellorNominated);
+  channel.bind(Events.ChancellorVote, chancellorVote);
+  channel.bind(Events.ChancellorElected, chancellorVote);
+  channel.bind(Events.ElectionTracker, electionTracker);
 };
 
-export const connectChannels = (channelName: ChannelName, userId: UserID) => {
+export const connectChannels = (channelName: ChannelName, userId: UserID): Channels => {
   if (!channelName || !userId) {
     throw new Error('Something went wrong.');
   }
 
-  const presence = pusher.subscribe(`presence-${channelName}`);
+  const presence = pusher.subscribe(`presence-${channelName}`) as PresenceChannel;
   const priv = pusher.subscribe(`private-${userId}`);
   const channel = pusher.subscribe(channelName);
 
-  store.commit('setChannels', {
+  function setMembers() {
+    const membersToSet: Member[] = [];
+
+    presence.members.each((member: PusherMember) => membersToSet.push({
+      userId: member.id,
+      userName: member.info.userName,
+      isCreator: member.info.isChannelCreator,
+    }));
+
+    store.commit(mutations.SET_MEMBERS, membersToSet);
+  }
+
+  presence.bind('pusher:subscription_succeeded', setMembers);
+  presence.bind('pusher:member_added', setMembers);
+  presence.bind('pusher:member_removed', setMembers);
+
+  const channels = {
     presence, priv, channel,
-  });
+  };
+
+  return channels;
 };
