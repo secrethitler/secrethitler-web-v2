@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2018",
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -28,10 +28,11 @@
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx", "tests/unit/GameCreate.spec.js"
   ],
   "exclude": [
     "node_modules"
