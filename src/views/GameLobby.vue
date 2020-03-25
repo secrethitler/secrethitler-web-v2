@@ -53,30 +53,31 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import startGame from '@/actions/startGame';
+import Component from 'vue-class-component';
 
-export default {
-  computed: {
-    ...mapGetters(['members', 'userId', 'isCreator']),
-    link() {
-      return `${window.location.protocol}//${window.location.host}/join-game?lobby=${this.$route.params.id}`;
-    },
-  },
+@Component({
+  computed: mapGetters(['members', 'userId', 'isCreator']),
+})
+export default class GameLobby extends Vue {
+  get link() {
+    return `${window.location.protocol}//${window.location.host}/join-game?lobby=${this.$route.params.id}`;
+  }
 
-  methods: {
-    copyToClipboard() {
-      this.$refs.link.select();
+  copyToClipboard() {
+    (this.$refs.link as HTMLInputElement).select();
 
-      document.execCommand('copy');
-    },
+    document.execCommand('copy');
+  }
 
-    startGame() {
-      startGame();
-    },
-  },
-};
+  // eslint-disable-next-line class-methods-use-this
+  startGame() {
+    startGame();
+  }
+}
 </script>
 
 <style lang="scss" scoped>

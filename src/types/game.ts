@@ -11,7 +11,7 @@ export type Member = {
 }
 
 export type PusherMember = {
-  id: UserID,
+  id: string,
   info: {
     isChannelCreator: boolean,
     userName: string
@@ -91,6 +91,9 @@ export type GameGetters = {
   channelName?: ChannelName,
   members?: Member[],
   partyMembers?: Member[],
+  rounds?: Round[],
+  roleName?: Role,
+  electionTracker?: number,
 
   you?: Member,
   creator?: Member,

@@ -5,7 +5,7 @@ import { mutations } from '@/store/game';
 import navigateTo from '@/utils/navigateTo';
 
 export default function (event: NotifyPresident) {
-  store.commit(mutations.SET_CHANCELLOR_ELECTED, event.electable);
+  store.commit(mutations.SET_ELECTABLE, event.electable);
 
   navigateTo(Route.GameNominate);
 }

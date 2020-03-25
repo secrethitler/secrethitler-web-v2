@@ -32,26 +32,20 @@ import Vue from 'vue';
 import memberListFromIds from '@/utils/memberListFromIds';
 import { Member, UserID } from '@/types/game';
 import nominateChancellor from '@/actions/nominateChancellor';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
-  props: {
-    data: {
-      required: true,
-    },
-  },
+@Component
+export default class GameNominate extends Vue {
+  get electable(): Member[] {
+    const electableIds: UserID[] = this.$store.getters.activeRound.secret
+      .electable;
 
-  computed: {
-    electable(): Member[] {
-      const electableIds: UserID[] = this.$store.getters.activeRound.secret.electable;
+    return memberListFromIds(electableIds);
+  }
 
-      return memberListFromIds(electableIds);
-    },
-  },
-
-  methods: {
-    nominate(id: UserID) {
-      nominateChancellor(id);
-    },
-  },
-});
+  // eslint-disable-next-line class-methods-use-this
+  nominate(id: UserID) {
+    nominateChancellor(id);
+  }
+}
 </script>

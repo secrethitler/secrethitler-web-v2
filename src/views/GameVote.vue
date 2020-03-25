@@ -42,54 +42,57 @@
 <script lang="ts">
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
+import Component from 'vue-class-component';
 import voteChancellor from '../actions/voteChancellor';
-import { Vote } from '../types/game';
-
-type Data = {
-  disable: boolean,
-  voted: UserVote
-}
+import {
+  Vote, Round, Member, UserID,
+} from '../types/game';
 
 enum UserVote {
   NotYet,
   Yes,
-  No,
+  No
 }
 
-export default Vue.extend({
-  data(): Data {
-    return {
-      disable: false,
-      voted: UserVote.NotYet,
-    };
-  },
+@Component({
+  computed: mapGetters(['chancellor', 'members', 'activeRound', 'userId']),
+})
+export default class GameVote extends Vue {
+  disable = false;
 
-  computed: {
-    ...mapGetters(['chancellor', 'members', 'activeRound', 'userId']),
-    count(): number {
-      return this.activeRound.votes.length;
-    },
-    hasFinished(): boolean {
-      return this.count === this.members.length;
-    },
-    hasVoted(): boolean {
-      return (
-        this.disable
-        || !!this.activeRound.votes.find((vote: Vote) => vote.userId === this.userId)
-      );
-    },
-  },
+  voted = UserVote.NotYet;
 
-  methods: {
-    async vote(votedYes: boolean) {
-      this.disable = true;
-      try {
-        await voteChancellor(votedYes);
-        this.voted = votedYes ? UserVote.Yes : UserVote.No;
-      } catch (e) {
-        this.disable = false;
-      }
-    },
-  },
-});
+  UserVote = UserVote;
+
+  activeRound!: Round;
+
+  members!: Member[];
+
+  userId!: UserID;
+
+  get count(): number {
+    return this.activeRound.votes.length;
+  }
+
+  get hasFinished(): boolean {
+    return this.count === this.members.length;
+  }
+
+  get hasVoted(): boolean {
+    return (
+      this.disable
+      || !!this.activeRound.votes.find((vote: Vote) => vote.userId === this.userId)
+    );
+  }
+
+  async vote(votedYes: boolean) {
+    this.disable = true;
+    try {
+      await voteChancellor(votedYes);
+      this.voted = votedYes ? UserVote.Yes : UserVote.No;
+    } catch (e) {
+      this.disable = false;
+    }
+  }
+}
 </script>

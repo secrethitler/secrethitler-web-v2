@@ -20,6 +20,7 @@ export enum mutations {
   SET_CHANCELLOR_POLICIES = 'setChancellorPolicies',
   SET_PRESIDENT_POLICIES = 'setPresidentPolicies',
   INC_ELECTION_TRACKER = 'incElectionTracker',
+  RESET_ELECTION_TRACKER = 'resetElectionTracker',
   SET_ENACTED_POLICY = 'setEnactedPolicy',
 }
 
@@ -46,8 +47,14 @@ const gameStore: Module<GameState, StoreRootState> = {
     userId: state => state.userId,
     token: state => state.token,
     channelName: state => state.channelName,
-    members: state => state.members,
     partyMembers: state => state.partyMembers,
+    rounds: state => state.rounds,
+    roleName: state => state.roleName,
+    electionTracker: state => state.electionTracker,
+    allMembers: state => state.members,
+
+    // Ignore killed members.
+    members: (state: GameState) => state.members.filter(member => state.killed.includes(member.userId) === false),
 
     you(state: GameState): Member | undefined {
       return state.members.find(member => member.userId === state.userId);
@@ -58,8 +65,8 @@ const gameStore: Module<GameState, StoreRootState> = {
     isCreator(state: GameState): boolean {
       return state.userId === state.creatorId;
     },
-    isElected(state: GameState, getters): boolean {
-      return (getters.activeRound as Round).chancellorElected;
+    isElected(state: GameState, getters): boolean | undefined {
+      return (getters.activeRound as Round)?.chancellorElected;
     },
     activeRound(state: GameState): Round | undefined {
       return state.rounds[state.activeRound];
@@ -74,6 +81,9 @@ const gameStore: Module<GameState, StoreRootState> = {
 
   mutations: {
     [mutations.INIT_GAME](state: GameState, payload: GameJoinResponse) {
+      // Clear old storage.
+      localStorage.removeItem('gameStorage');
+
       state.token = payload.token;
       state.channelName = payload.channelName;
       state.userId = payload.userId;
@@ -120,6 +130,11 @@ const gameStore: Module<GameState, StoreRootState> = {
     },
 
     [mutations.ADD_VOTE](state: GameState, payload: Vote) {
+      // Check if vote already exists.
+      if (state.rounds[state.activeRound].votes.find(vote => vote.userId === payload.userId) !== undefined) {
+        return;
+      }
+
       state.rounds[state.activeRound].votes.push(payload);
     },
 
@@ -145,6 +160,10 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     [mutations.INC_ELECTION_TRACKER](state: GameState) {
       state.electionTracker += 1;
+    },
+
+    [mutations.RESET_ELECTION_TRACKER](state: GameState) {
+      state.electionTracker = 0;
     },
 
     [mutations.SET_ENACTED_POLICY](state: GameState, enacted: Policy) {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import faCrown from '@fortawesome/free-solid-svg-icons/faCrown';
+import { faCrown } from '@fortawesome/free-solid-svg-icons';
 
 export default {
   props: {
@@ -20,7 +20,13 @@ export default {
         crown: faCrown,
       };
 
-      return icons[this.icon];
+      const { icon } = icons[this.icon];
+
+      return {
+        width: icon[0],
+        height: icon[1],
+        svgPathData: icon[4],
+      };
     },
     getViewBox() {
       return `0 0 ${this.getIcon.width} ${this.getIcon.height}`;

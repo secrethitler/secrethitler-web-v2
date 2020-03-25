@@ -3,7 +3,7 @@ import {
 } from '@/types/game';
 import pusher from '@/plugins/pusher';
 import { Events } from '@/types/events';
-import { Channel, PresenceChannel, Members } from 'pusher-js';
+import { Channel, PresenceChannel } from 'pusher-js';
 import store from '@/store';
 import { mutations } from '@/store/game';
 import gameStart from './gameStart';
@@ -18,6 +18,7 @@ import executePlayer from './executePlayer';
 import policyPeek from './policyPeek';
 import specialElection from './specialElection';
 import loyaltyInvestigation from './loyaltyInvestigation';
+import chancellorElected from './chancellorElected';
 
 interface Channels {
   channel: Channel,
@@ -42,7 +43,7 @@ export const registerHandlers = (channels: Channels) => {
   channel.bind(Events.NextRound, nextRound);
   channel.bind(Events.ChancellorNominated, chancellorNominated);
   channel.bind(Events.ChancellorVote, chancellorVote);
-  channel.bind(Events.ChancellorElected, chancellorVote);
+  channel.bind(Events.ChancellorElected, chancellorElected);
   channel.bind(Events.ElectionTracker, electionTracker);
 };
 
@@ -59,7 +60,7 @@ export const connectChannels = (channelName: ChannelName, userId: UserID): Chann
     const membersToSet: Member[] = [];
 
     presence.members.each((member: PusherMember) => membersToSet.push({
-      userId: member.id,
+      userId: parseInt(member.id, 10),
       userName: member.info.userName,
       isCreator: member.info.isChannelCreator,
     }));

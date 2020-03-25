@@ -35,23 +35,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import createGame from '@/actions/createGame';
+import Component from 'vue-class-component';
 
-export default {
-  data() {
-    return {
-      error: '',
-      userName: '',
-    };
-  },
+@Component
+export default class GameCreate extends Vue {
+  error = '';
 
-  methods: {
-    handleSubmit() {
-      createGame(this.userName);
-    },
-  },
-};
+  userName = '';
+
+  handleSubmit() {
+    createGame(this.userName);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -9,6 +9,7 @@ import modal from './modal';
 Vue.use(Vuex);
 
 const vuexLocal = new VuexPersistence<GameState>({
+  key: 'gameStorage',
   storage: window.localStorage,
 });
 
@@ -18,7 +19,6 @@ export default new Vuex.Store<GameState>({
   modules: {
     game,
     modal,
-    // connections,
   },
 
   plugins: [vuexLocal.plugin],

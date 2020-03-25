@@ -12,6 +12,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mutations } from '@/store/modal';
 
 export default {
   props: {
@@ -22,7 +23,7 @@ export default {
   },
 
   computed: {
-    // ...mapGetters(['activeModal']),
+    ...mapGetters(['activeModal']),
     open() {
       return this.name === this.activeModal;
     },
@@ -30,11 +31,11 @@ export default {
 
   methods: {
     show() {
-      this.$store.commit('setActiveModal', this.name);
+      this.$store.commit(mutations.SET_ACTIVE_MODAL, this.name);
       window.addEventListener('click', this.handleClick);
     },
     close() {
-      this.$store.commit('setActiveModal', null);
+      this.$store.commit(mutations.SET_ACTIVE_MODAL, null);
       window.removeEventListener('click', this.handleClick);
     },
     handleClick(e) {

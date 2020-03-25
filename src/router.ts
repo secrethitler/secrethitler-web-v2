@@ -51,16 +51,16 @@ const routes = [
         name: Route.GameVote,
         component: () => import('@/views/GameVote.vue'),
       },
-      //     {
-      //       path: 'vote-result',
-      //       name: 'vote-result',
-      //       component: require('./views/GameVoteResult.vue').default,
-      //     },
-      //     {
-      //       path: 'president-select-policy',
-      //       name: 'president-select-policy',
-      //       component: require('./views/GamePresidentSelectPolicy.vue').default,
-      //     },
+      {
+        path: 'vote-result',
+        name: Route.GameVoteResult,
+        component: () => import('./views/GameVoteResult.vue'),
+      },
+      {
+        path: 'president-select-policy',
+        name: Route.GamePresidentPolicyPick,
+        component: () => import('./views/GamePresidentSelectPolicy.vue'),
+      },
       //     {
       //       path: 'chancellor-select-policy',
       //       name: 'chancellor-select-policy',

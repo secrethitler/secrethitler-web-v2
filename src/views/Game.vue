@@ -7,8 +7,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import { registerHandlers, connectChannels } from '@/actions/handlers';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
+@Component
+export default class Game extends Vue {
   created() {
     const channels = connectChannels(
       this.$store.getters.channelName,
@@ -16,6 +18,6 @@ export default Vue.extend({
     );
 
     registerHandlers(channels);
-  },
-});
+  }
+}
 </script>

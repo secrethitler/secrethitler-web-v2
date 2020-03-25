@@ -67,7 +67,7 @@
       </div>
 
       <div class="flex justify-center mt-8">
-        <ShowRole :role="role" />
+        <ShowRole :role="roleName" />
       </div>
 
       <div v-if="isCreator" class="flex justify-center mt-8">
@@ -83,44 +83,45 @@ import { mapGetters } from 'vuex';
 import ShowRole from '@/components/ShowRole.vue';
 import ElectionTracker from '@/components/ElectionTracker.vue';
 import nextRound from '@/actions/nextRound';
-import { Policy, Round } from '../types/game';
+import Component from 'vue-class-component';
+import { Policy, Round } from '@/types/game';
 
-export default Vue.extend({
+@Component({
   components: {
     ShowRole,
     ElectionTracker,
   },
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapGetters([
-      'rounds',
-      'isCreator',
-      'president',
-      'chancellor',
-      'role',
-      'channelName',
-      'members',
-      'isElected',
-    ]),
-    policies(): Policy[] {
-      return this.rounds.map((round: Round) => round.enactedPolicy);
-    },
-    liberal(): number {
-      return this.policies.filter((policy: Policy) => policy === Policy.Liberal).length;
-    },
-    fascist(): number {
-      return this.policies.filter((policy: Policy) => policy === Policy.Fascist).length;
-    },
-  },
+  computed: mapGetters([
+    'rounds',
+    'isCreator',
+    'president',
+    'chancellor',
+    'roleName',
+    'channelName',
+    'members',
+    'isElected',
+  ]),
+})
+export default class GameInfo extends Vue {
+  rounds!: Round[];
 
-  methods: {
-    handleNextRound() {
-      nextRound();
-    },
-  },
-});
+  get policies(): (Policy | false)[] {
+    return this.rounds.map((round: Round) => round.enactedPolicy);
+  }
+
+  get liberal(): number {
+    return this.policies.filter((policy: Policy | false) => policy === Policy.Liberal).length;
+  }
+
+  get fascist(): number {
+    return this.policies.filter((policy: Policy | false) => policy === Policy.Fascist).length;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  handleNextRound() {
+    nextRound();
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -45,40 +45,42 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
 import joinGame from '../actions/joinGame';
 
-export default {
-  data() {
-    return {
-      channelName: '',
-      userName: '',
-      error: '',
-      joining: false,
-    };
-  },
+@Component
+export default class GameJoin extends Vue {
+  channelName = '';
 
-  methods: {
-    handleSubmit() {
-      if (this.joining) {
-        return;
-      }
+  userName = '';
 
-      this.joining = true;
+  error = '';
 
-      try {
-        joinGame(this.userName, this.channelName);
-      } catch (e) {
-        this.error = e;
-        this.joining = false;
-      }
-    },
-  },
+  joining = false;
+
+  handleSubmit() {
+    if (this.joining) {
+      return;
+    }
+
+    this.joining = true;
+
+    try {
+      joinGame(this.userName, this.channelName);
+    } catch (e) {
+      this.error = e;
+      this.joining = false;
+    }
+  }
 
   created() {
-    this.channelName = this.$route.query.lobby;
-  },
-};
+    if (typeof this.$route.query.lobby === 'string') {
+      this.channelName = this.$route.query.lobby;
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

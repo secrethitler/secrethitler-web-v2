@@ -6,6 +6,8 @@ enum Route {
   GameInfo = 'game.info',
   GameNominate = 'game.nominate',
   GameVote = 'game.vote',
+  GameVoteResult = 'game.vote.result',
+  GamePresidentPolicyPick = 'game.president-pick'
 }
 
 export default Route;
