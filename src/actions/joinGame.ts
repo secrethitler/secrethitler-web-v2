@@ -2,7 +2,7 @@ import store from '@/store';
 import join from '@/api/game/join';
 import { mutations } from '@/store/game';
 import { ChannelName } from '@/types/game';
-import Routes from '@/types/routes';
+import Route from '@/types/route';
 import navigateTo from '@/utils/navigateTo';
 
 export default async function (userName: string, channelName: ChannelName) {
@@ -10,5 +10,5 @@ export default async function (userName: string, channelName: ChannelName) {
 
   store.commit(mutations.INIT_GAME, data);
 
-  navigateTo(Routes.GameLobby);
+  navigateTo(Route.GameLobby);
 }

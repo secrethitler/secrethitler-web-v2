@@ -4,7 +4,7 @@ import VuexPersistence from 'vuex-persist';
 
 import { StoreRootState, GameState } from '@/types/game';
 import game from './game';
-import connections from './connections';
+import modal from './modal';
 
 Vue.use(Vuex);
 
@@ -17,6 +17,7 @@ export default new Vuex.Store<GameState>({
 
   modules: {
     game,
+    modal,
     // connections,
   },
 

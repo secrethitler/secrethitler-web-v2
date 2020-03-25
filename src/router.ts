@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Routes from '@/types/routes';
+import Route from '@/types/route';
 
 import Landingpage from './views/Landingpage.vue';
 
@@ -9,7 +9,7 @@ Vue.use(Router);
 const routes = [
   {
     path: '/',
-    name: Routes.Landingpage,
+    name: Route.Landingpage,
     component: Landingpage,
   },
   {
@@ -18,12 +18,12 @@ const routes = [
   },
   {
     path: '/create-game',
-    name: Routes.GameCreate,
+    name: Route.GameCreate,
     component: () => import('@/views/GameCreate.vue'),
   },
   {
     path: '/join-game',
-    name: Routes.GameJoin,
+    name: Route.GameJoin,
     component: () => import('@/views/GameJoin.vue'),
   },
   {
@@ -33,24 +33,24 @@ const routes = [
     children: [
       {
         path: 'lobby',
-        name: Routes.GameLobby,
+        name: Route.GameLobby,
         component: () => import('@/views/GameLobby.vue'),
       },
-      //     {
-      //       path: 'info',
-      //       name: 'info',
-      //       component: require('./views/GameInfo.vue').default,
-      //     },
-      //     {
-      //       path: 'nominate',
-      //       name: 'nominate',
-      //       component: require('./views/GameNominate.vue').default,
-      //     },
-      //     {
-      //       path: 'vote',
-      //       name: 'vote',
-      //       component: require('./views/GameVote.vue').default,
-      //     },
+      {
+        path: 'info',
+        name: Route.GameInfo,
+        component: () => import('@/views/GameInfo.vue'),
+      },
+      {
+        path: 'nominate',
+        name: Route.GameNominate,
+        component: () => import('@/views/GameNominate.vue'),
+      },
+      {
+        path: 'vote',
+        name: Route.GameVote,
+        component: () => import('@/views/GameVote.vue'),
+      },
       //     {
       //       path: 'vote-result',
       //       name: 'vote-result',

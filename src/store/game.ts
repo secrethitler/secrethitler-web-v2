@@ -1,9 +1,10 @@
 import { Module } from 'vuex';
 import {
-  GameState, StoreRootState, Member, Round, Action, Role, UserID, Vote, Policy,
+  GameState, StoreRootState, Member, Round, Role, UserID, Vote, Policy,
 } from '@/types/game';
 import { GameCreateResponse, GameJoinResponse } from '@/types/http';
 import { GameStart } from '@/types/events';
+import Route from '@/types/route';
 
 export enum mutations {
   INIT_GAME = 'initGame',
@@ -11,6 +12,7 @@ export enum mutations {
   START_GAME = 'startGame',
   SET_NOMINATED_CHANCELLOR = 'setNominatedChancellor',
   SET_NEXT_ROUND = 'setNextRound',
+  SET_CURRENT_ACTION = 'setCurrentAction',
   ADD_VOTE = 'addVote',
   SET_CHANCELLOR_ELECTED = 'chancellorElected',
   SET_ELECTABLE = 'setElectable',
@@ -29,7 +31,7 @@ const gameStore: Module<GameState, StoreRootState> = {
     channelName: undefined,
     roleName: undefined,
 
-    currentAction: Action.Idle,
+    currentAction: Route.GameLobby,
     partyMembers: [],
     members: [],
     activeRound: -1,
@@ -45,6 +47,7 @@ const gameStore: Module<GameState, StoreRootState> = {
     token: state => state.token,
     channelName: state => state.channelName,
     members: state => state.members,
+    partyMembers: state => state.partyMembers,
 
     you(state: GameState): Member | undefined {
       return state.members.find(member => member.userId === state.userId);
@@ -52,8 +55,11 @@ const gameStore: Module<GameState, StoreRootState> = {
     creator(state: GameState): Member | undefined {
       return state.members.find(member => member.userId === state.creatorId);
     },
-    isCreator(state: GameState) {
+    isCreator(state: GameState): boolean {
       return state.userId === state.creatorId;
+    },
+    isElected(state: GameState, getters): boolean {
+      return (getters.activeRound as Round).chancellorElected;
     },
     activeRound(state: GameState): Round | undefined {
       return state.rounds[state.activeRound];
@@ -73,6 +79,10 @@ const gameStore: Module<GameState, StoreRootState> = {
       state.userId = payload.userId;
       state.creatorId = payload.creatorId;
       state.members = [];
+    },
+
+    [mutations.SET_CURRENT_ACTION](state: GameState, action: Route) {
+      state.currentAction = action;
     },
 
     [mutations.SET_MEMBERS](state: GameState, members: Member[]) {

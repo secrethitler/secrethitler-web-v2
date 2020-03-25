@@ -1,4 +1,5 @@
 import { PresenceChannel, Channel } from 'pusher-js';
+import Route from './route';
 
 export type UserID = number;
 
@@ -71,7 +72,7 @@ export type GameState = {
   creatorId?: UserID,
   channelName?: ChannelName,
   roleName?: Role,
-  currentAction: Action,
+  currentAction: Route,
 
   activeRound: number,
   electionTracker: number,
@@ -84,10 +85,20 @@ export type GameState = {
   running: boolean
 }
 
-export type ConnectionsState = {
-  presence?: PresenceChannel | Channel,
-  priv?: Channel,
-  channel?: Channel,
+export type GameGetters = {
+  userId?: UserID,
+  token?: string,
+  channelName?: ChannelName,
+  members?: Member[],
+  partyMembers?: Member[],
+
+  you?: Member,
+  creator?: Member,
+  isCreator?: boolean,
+  isElected?: boolean,
+  activeRound?: Round,
+  president?: Member,
+  chancellor?: Member,
 }
 
 export type StoreRootState = {};

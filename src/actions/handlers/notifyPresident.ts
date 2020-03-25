@@ -1,9 +1,11 @@
-import { ChancellorElected, NotifyPresident } from '@/types/events';
+import { NotifyPresident } from '@/types/events';
+import Route from '@/types/route';
 import store from '@/store';
 import { mutations } from '@/store/game';
+import navigateTo from '@/utils/navigateTo';
 
 export default function (event: NotifyPresident) {
   store.commit(mutations.SET_CHANCELLOR_ELECTED, event.electable);
 
-  // TODO add rediret.
+  navigateTo(Route.GameNominate);
 }
