@@ -101,7 +101,7 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     [mutations.START_GAME](state: GameState, event: GameStart) {
       state.roleName = event.roleName;
-      state.partyMembers = event.partyMembers;
+      state.partyMembers = event.partyMembers || [];
     },
 
     [mutations.SET_NOMINATED_CHANCELLOR](state: GameState, chancellorId: UserID) {
