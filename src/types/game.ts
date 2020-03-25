@@ -5,7 +5,7 @@ export type UserID = number;
 export type Member = {
   userId: UserID
   userName: string,
-  userRole?: Role,
+  roleName?: Role,
   isCreator?: boolean
 }
 
@@ -70,18 +70,14 @@ export type GameState = {
   userId?: UserID,
   creatorId?: UserID,
   channelName?: ChannelName,
-  role?: Role,
+  roleName?: Role,
   currentAction: Action,
 
   activeRound: number,
   electionTracker: number,
 
   members: Member[],
-  partyMembers?: {
-    userId: UserID,
-    userName: string,
-    role: Role
-  }[],
+  partyMembers?: Member[],
   rounds: Round[],
   killed: UserID[],
 

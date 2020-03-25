@@ -27,9 +27,10 @@ const gameStore: Module<GameState, StoreRootState> = {
     userId: undefined,
     creatorId: undefined,
     channelName: undefined,
-    role: undefined,
+    roleName: undefined,
 
     currentAction: Action.Idle,
+    partyMembers: [],
     members: [],
     activeRound: -1,
     rounds: [],
@@ -79,8 +80,8 @@ const gameStore: Module<GameState, StoreRootState> = {
     },
 
     [mutations.START_GAME](state: GameState, event: GameStart) {
-      state.role = event.roleName;
-      state.partyMembers = event.partyMembers?.map(member => ({ userId: member.userId, userName: member.userName, role: member.roleName }));
+      state.roleName = event.roleName;
+      state.partyMembers = event.partyMembers;
     },
 
     [mutations.SET_NOMINATED_CHANCELLOR](state: GameState, chancellorId: UserID) {
