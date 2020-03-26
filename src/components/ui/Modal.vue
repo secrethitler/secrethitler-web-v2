@@ -1,7 +1,10 @@
 <template>
   <transition name="modal">
     <div v-if="open" class="modal" :class="{ 'modal-open': open }">
-      <div ref="modal" class="modal-inner container inline-flex justify-center items-center">
+      <div ref="modal" class="modal-inner relative inline-flex justify-center items-center">
+        <button @click="close" class="absolute top-0 right-0 p-3">
+          <icon icon="times" class="opacity-75" />
+        </button>
         <div>
           <slot></slot>
         </div>
@@ -71,7 +74,7 @@ export default {
   .modal-inner {
     transition: all 0.3s ease;
     transform: translateY(-5rem);
-    @apply inline-flex rounded-lg p-4 shadow-lg bg-white;
+    @apply inline-flex rounded-lg p-8 shadow-lg bg-white;
   }
 }
 

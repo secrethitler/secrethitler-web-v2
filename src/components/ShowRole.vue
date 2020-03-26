@@ -9,40 +9,47 @@
     >Hold to show role</button>
 
     <modal name="role" ref="modal">
-      <div class="flex justify-center mb-4">
-        <img v-if="role == 'fascist'" src="../assets/role_fascist.jpg" alt="Fascist" />
-        <img v-if="role == 'liberal'" src="../assets/role_liberal.jpg" alt="Liberal" />
-        <img v-if="role == 'secret hitler'" src="../assets/role_hitler.jpg" alt="Hitler" />
+      <div class="flex justify-center">
+        <img v-if="roleName === Role.Fascist" src="../assets/role_fascist.jpg" alt="Fascist" />
+        <img v-if="roleName === Role.Liberal" src="../assets/role_liberal.jpg" alt="Liberal" />
+        <img v-if="roleName === Role.Hitler" src="../assets/role_hitler.jpg" alt="Hitler" />
       </div>
-      <div v-if="role != 'liberal' && partyMembers.length > 0">
+      <div v-if="roleName !== Role.Liberal && partyMembers.length > 0" class="mt-4">
         <div v-for="member in partyMembers" :key="member.userId">
-          <span>{{ member.userName }}: {{ member.roleName }}</span>
+          <span class="text-xl font-bold">
+            {{ member.userName }}:
+            <span
+              v-if="member.roleName === Role.Hitler"
+              class="font-old font-bold text-xl"
+            >Hitler</span>
+            <span v-if="member.roleName === Role.Fascist" class="font-old font-bold text-xl">Fascist</span>
+          </span>
         </div>
       </div>
     </modal>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import { mapGetters } from 'vuex';
+import Component from 'vue-class-component';
+import { Role } from '../types/game';
 
-export default {
-  props: ['role'],
+@Component({
+  computed: mapGetters(['roleName', 'partyMembers']),
+})
+export default class ShowRole extends Vue {
+  Role = Role;
 
-  computed: {
-    ...mapGetters(['partyMembers']),
-  },
+  show() {
+    (this.$refs.modal as any).show();
+  }
 
-  methods: {
-    show() {
-      this.$refs.modal.show();
-    },
-
-    hide() {
-      this.$refs.modal.close();
-    },
-  },
-};
+  hide() {
+    (this.$refs.modal as any).close();
+  }
+}
 </script>
 
 <style>

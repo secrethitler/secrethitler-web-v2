@@ -8,7 +8,8 @@ import Route from '@/types/route';
 
 export enum mutations {
   INIT_GAME = 'initGame',
-  SET_MEMBERS = 'setMembers',
+  // SET_MEMBERS = 'setMembers',
+  SET_CONNECTED_MEMBERS = 'setConnectedMembers',
   START_GAME = 'startGame',
   SET_NOMINATED_CHANCELLOR = 'setNominatedChancellor',
   SET_NEXT_ROUND = 'setNextRound',
@@ -34,6 +35,7 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     currentAction: Route.GameLobby,
     partyMembers: [],
+    connectedMembers: [],
     members: [],
     activeRound: -1,
     rounds: [],
@@ -48,6 +50,7 @@ const gameStore: Module<GameState, StoreRootState> = {
     token: state => state.token,
     channelName: state => state.channelName,
     partyMembers: state => state.partyMembers,
+    connectedMembers: state => state.connectedMembers,
     rounds: state => state.rounds,
     roleName: state => state.roleName,
     electionTracker: state => state.electionTracker,
@@ -81,27 +84,37 @@ const gameStore: Module<GameState, StoreRootState> = {
 
   mutations: {
     [mutations.INIT_GAME](state: GameState, payload: GameJoinResponse) {
-      // Clear old storage.
+      // Clear old storage and setup a new game.
       localStorage.removeItem('gameStorage');
 
       state.token = payload.token;
       state.channelName = payload.channelName;
       state.userId = payload.userId;
       state.creatorId = payload.creatorId;
+
+      // Resets
+      state.rounds = [];
+      state.activeRound = -1;
       state.members = [];
+      state.connectedMembers = [];
+      state.partyMembers = [];
+      state.roleName = undefined;
     },
 
     [mutations.SET_CURRENT_ACTION](state: GameState, action: Route) {
       state.currentAction = action;
     },
 
-    [mutations.SET_MEMBERS](state: GameState, members: Member[]) {
-      state.members = members;
+    [mutations.SET_CONNECTED_MEMBERS](state: GameState, members: Member[]) {
+      state.connectedMembers = members;
     },
 
     [mutations.START_GAME](state: GameState, event: GameStart) {
       state.roleName = event.roleName;
       state.partyMembers = event.partyMembers || [];
+
+      // Constant members when we start the game.
+      state.members = state.connectedMembers;
     },
 
     [mutations.SET_NOMINATED_CHANCELLOR](state: GameState, chancellorId: UserID) {

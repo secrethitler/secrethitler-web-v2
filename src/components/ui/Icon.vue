@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { faCrown } from '@fortawesome/free-solid-svg-icons';
+import { faCrown, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default {
   props: {
@@ -18,6 +18,7 @@ export default {
     getIcon() {
       const icons = {
         crown: faCrown,
+        times: faTimes,
       };
 
       const { icon } = icons[this.icon];

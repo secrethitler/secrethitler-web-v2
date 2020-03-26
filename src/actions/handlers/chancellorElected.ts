@@ -8,7 +8,7 @@ export default function (event: ChancellorElected) {
   store.commit(mutations.SET_CHANCELLOR_ELECTED, event.elected);
 
   // if not president redirect to result page.
-  if (store.getters.president.userId !== store.state.userId) {
+  if (store.getters.president.userId !== store.getters.userId) {
     navigateTo(Route.GameVoteResult);
   }
 }

@@ -1,4 +1,3 @@
-import { PresenceChannel, Channel } from 'pusher-js';
 import Route from './route';
 
 export type UserID = number;
@@ -78,6 +77,7 @@ export type GameState = {
   electionTracker: number,
 
   members: Member[],
+  connectedMembers: Member[],
   partyMembers?: Member[],
   rounds: Round[],
   killed: UserID[],

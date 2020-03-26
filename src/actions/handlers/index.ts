@@ -32,8 +32,8 @@ export const registerHandlers = (channels: Channels) => {
   // Private handlers
   priv.bind(Events.GameStart, gameStart);
   priv.bind(Events.NotifyPresident, notifyPresident);
-  priv.bind(Events.ChancellorReceivePolicies, chancellorReceivePolicies);
   priv.bind(Events.PresidentReceivePolicies, presidentReceivePolicies);
+  priv.bind(Events.ChancellorReceivePolicies, chancellorReceivePolicies);
   priv.bind(Events.ExecutePlayer, executePlayer);
   priv.bind(Events.PolicyPeek, policyPeek);
   priv.bind(Events.SpecialElection, specialElection);
@@ -65,7 +65,7 @@ export const connectChannels = (channelName: ChannelName, userId: UserID): Chann
       isCreator: member.info.isChannelCreator,
     }));
 
-    store.commit(mutations.SET_MEMBERS, membersToSet);
+    store.commit(mutations.SET_CONNECTED_MEMBERS, membersToSet);
   }
 
   presence.bind('pusher:subscription_succeeded', setMembers);

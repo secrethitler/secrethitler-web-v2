@@ -61,11 +61,11 @@ const routes = [
         name: Route.GamePresidentPolicyPick,
         component: () => import('./views/GamePresidentSelectPolicy.vue'),
       },
-      //     {
-      //       path: 'chancellor-select-policy',
-      //       name: 'chancellor-select-policy',
-      //       component: require('./views/GameChancellorSelectPolicy.vue').default,
-      //     },
+      {
+        path: 'chancellor-select-policy',
+        name: Route.GameChancellorPolicyPick,
+        component: () => import('./views/GameChancellorSelectPolicy.vue'),
+      },
       //     {
       //       path: 'game-over',
       //       name: 'game-over',

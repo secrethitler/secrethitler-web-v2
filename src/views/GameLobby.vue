@@ -20,11 +20,11 @@
           </div>
         </div>
       </div>
-      <div v-if="members.length > 0">
+      <div v-if="connectedMembers.length > 0">
         <h3 class="font-serif text-2xl mb-2 mr-4">Players:</h3>
         <ul>
           <li
-            v-for="member in members"
+            v-for="member in connectedMembers"
             :key="member.userId"
             class="flex bg-white rounded shadow-lg items-center px-4 py-3 mb-2 text-lg font-serif"
           >
@@ -45,7 +45,7 @@
       <div v-if="isCreator" class="mt-4 flex justify-center">
         <button
           class="btn shadow game-start-btn"
-          :disabled="members.length < 5 || members.length > 10"
+          :disabled="connectedMembers.length < 5 || connectedMembers.length > 10"
           @click="startGame"
         >Start Game</button>
       </div>
@@ -60,7 +60,7 @@ import startGame from '@/actions/startGame';
 import Component from 'vue-class-component';
 
 @Component({
-  computed: mapGetters(['members', 'userId', 'isCreator']),
+  computed: mapGetters(['connectedMembers', 'userId', 'isCreator']),
 })
 export default class GameLobby extends Vue {
   get link() {
