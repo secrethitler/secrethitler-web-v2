@@ -19,6 +19,7 @@ import policyPeek from './policyPeek';
 import specialElection from './specialElection';
 import loyaltyInvestigation from './loyaltyInvestigation';
 import chancellorElected from './chancellorElected';
+import policyEnacted from './policyEnacted';
 
 interface Channels {
   channel: Channel,
@@ -44,6 +45,7 @@ export const registerHandlers = (channels: Channels) => {
   channel.bind(Events.ChancellorNominated, chancellorNominated);
   channel.bind(Events.ChancellorVote, chancellorVote);
   channel.bind(Events.ChancellorElected, chancellorElected);
+  channel.bind(Events.PolicyEnacted, policyEnacted);
   channel.bind(Events.ElectionTracker, electionTracker);
 };
 
