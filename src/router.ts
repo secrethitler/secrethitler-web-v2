@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Route from '@/types/route';
 
-import Landingpage from './views/Landingpage.vue';
+import Landingpage from '@/views/Landingpage.vue';
 
 Vue.use(Router);
 
@@ -54,48 +54,48 @@ const routes = [
       {
         path: 'vote-result',
         name: Route.GameVoteResult,
-        component: () => import(/* webpackChunkName: "GameVoteResult" */ './views/GameVoteResult.vue'),
+        component: () => import(/* webpackChunkName: "GameVoteResult" */ '@/views/GameVoteResult.vue'),
       },
       {
         path: 'president-select-policy',
         name: Route.GamePresidentPolicyPick,
-        component: () => import(/* webpackChunkName: "GamePresidentSelectPolicy" */ './views/GamePresidentSelectPolicy.vue'),
+        component: () => import(/* webpackChunkName: "GamePresidentSelectPolicy" */ '@/views/GamePresidentSelectPolicy.vue'),
       },
       {
         path: 'chancellor-select-policy',
         name: Route.GameChancellorPolicyPick,
-        component: () => import(/* webpackChunkName: "GameChancellorSelectPolicy" */ './views/GameChancellorSelectPolicy.vue'),
+        component: () => import(/* webpackChunkName: "GameChancellorSelectPolicy" */ '@/views/GameChancellorSelectPolicy.vue'),
       },
       {
         path: 'game-over',
         name: Route.GameWon,
-        component: () => import(/* webpackChunkName: "GameWon" */ './views/GameWon.vue'),
+        component: () => import(/* webpackChunkName: "GameWon" */ '@/views/GameWon.vue'),
       },
-      //     // Special President Powers
-      //     {
-      //       path: 'eliminate-player',
-      //       name: 'eliminate-player',
-      //       component: () => import(/* webpackChunkName: "GameKillPlayer" */ './views/GameKillPlayer.vue'),
-      //     },
-      //     {
-      //       path: 'investigate',
-      //       name: 'investigate',
-      //       component: () => import(/* webpackChunkName: "GameInvestigate" */ './views/GameInvestigate.vue'),
-      //     },
+      // Special President Powers
+      {
+        path: 'eliminate-player',
+        name: Route.GameKillPlayer,
+        component: () => import(/* webpackChunkName: "GameKillPlayer" */ '@/views/GameKillPlayer.vue'),
+      },
+      {
+        path: 'investigate',
+        name: Route.GameInvestigate,
+        component: () => import(/* webpackChunkName: "GameInvestigate" */ '@/views/GameInvestigate.vue'),
+      },
       {
         path: 'is-eliminated',
         name: Route.GameIsKilled,
-        component: () => import(/* webpackChunkName: "GameIsKilled" */ './views/GameIsKilled.vue'),
+        component: () => import(/* webpackChunkName: "GameIsKilled" */ '@/views/GameIsKilled.vue'),
       },
       {
         path: 'special-election',
         name: Route.GameSpecialElection,
-        component: () => import(/* webpackChunkName: "GameSpecialElection" */ './views/GameSpecialElection.vue'),
+        component: () => import(/* webpackChunkName: "GameSpecialElection" */ '@/views/GameSpecialElection.vue'),
       },
       {
         path: 'policy-peek',
         name: Route.GamePolicyPeek,
-        component: () => import(/* webpackChunkName: "GamePolicyPeek" */ './views/GamePolicyPeek.vue'),
+        component: () => import(/* webpackChunkName: "GamePolicyPeek" */ '@/views/GamePolicyPeek.vue'),
       },
     ],
   },

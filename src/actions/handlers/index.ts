@@ -20,6 +20,7 @@ import specialElection from './specialElection';
 import loyaltyInvestigation from './loyaltyInvestigation';
 import chancellorElected from './chancellorElected';
 import policyEnacted from './policyEnacted';
+import gameWon from './gameWon';
 
 interface Channels {
   channel: Channel,
@@ -39,6 +40,7 @@ export const registerHandlers = (channels: Channels) => {
   priv.bind(Events.PolicyPeek, policyPeek);
   priv.bind(Events.SpecialElection, specialElection);
   priv.bind(Events.LoyaltyInvestigation, loyaltyInvestigation);
+  priv.bind(Events.GameWon, gameWon);
 
   // Global handlers
   channel.bind(Events.NextRound, nextRound);
