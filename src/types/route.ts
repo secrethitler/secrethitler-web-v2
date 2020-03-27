@@ -8,7 +8,8 @@ enum Route {
   GameVote = 'game.vote',
   GameVoteResult = 'game.vote.result',
   GamePresidentPolicyPick = 'game.president-pick',
-  GameChancellorPolicyPick = 'game.chancellor-pick'
+  GameChancellorPolicyPick = 'game.chancellor-pick',
+  GameWon = 'game.game-over',
 }
 
 export default Route;

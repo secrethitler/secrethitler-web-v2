@@ -3,7 +3,7 @@ import {
   GameState, StoreRootState, Member, Round, Role, UserID, Vote, Policy,
 } from '@/types/game';
 import { GameCreateResponse, GameJoinResponse } from '@/types/http';
-import { GameStart } from '@/types/events';
+import { GameStart, GameWon } from '@/types/events';
 import Route from '@/types/route';
 
 export enum mutations {
@@ -23,6 +23,7 @@ export enum mutations {
   INC_ELECTION_TRACKER = 'incElectionTracker',
   RESET_ELECTION_TRACKER = 'resetElectionTracker',
   SET_ENACTED_POLICY = 'setEnactedPolicy',
+  SET_GAME_WON = 'setGameWon'
 }
 
 const gameStore: Module<GameState, StoreRootState> = {
@@ -32,6 +33,8 @@ const gameStore: Module<GameState, StoreRootState> = {
     creatorId: undefined,
     channelName: undefined,
     roleName: undefined,
+
+    gameOver: false,
 
     currentAction: Route.GameLobby,
     partyMembers: [],
@@ -55,6 +58,7 @@ const gameStore: Module<GameState, StoreRootState> = {
     roleName: state => state.roleName,
     electionTracker: state => state.electionTracker,
     allMembers: state => state.members,
+    gameOver: state => state.gameOver,
 
     // Ignore killed members.
     members: (state: GameState) => state.members.filter(member => state.killed.includes(member.userId) === false),
@@ -99,6 +103,7 @@ const gameStore: Module<GameState, StoreRootState> = {
       state.connectedMembers = [];
       state.partyMembers = [];
       state.roleName = undefined;
+      state.gameOver = false;
     },
 
     [mutations.SET_CURRENT_ACTION](state: GameState, action: Route) {
@@ -181,6 +186,10 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     [mutations.SET_ENACTED_POLICY](state: GameState, enacted: Policy) {
       state.rounds[state.activeRound].enactedPolicy = enacted;
+    },
+
+    [mutations.SET_GAME_WON](state: GameState, payload: GameWon) {
+      state.gameOver = payload;
     },
 
   },

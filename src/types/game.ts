@@ -75,6 +75,10 @@ export type GameState = {
 
   activeRound: number,
   electionTracker: number,
+  gameOver: false | {
+    party: Party,
+    reason: string
+  },
 
   members: Member[],
   connectedMembers: Member[],

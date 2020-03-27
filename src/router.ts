@@ -66,11 +66,11 @@ const routes = [
         name: Route.GameChancellorPolicyPick,
         component: () => import(/* webpackChunkName: "GameChancellorSelectPolicy" */ './views/GameChancellorSelectPolicy.vue'),
       },
-      //     {
-      //       path: 'game-over',
-      //       name: 'game-over',
-      //       component: () => import(/* webpackChunkName: "GameWon" */ './views/GameWon.vue'),
-      //     },
+      {
+        path: 'game-over',
+        name: Route.GameWon,
+        component: () => import(/* webpackChunkName: "GameWon" */ './views/GameWon.vue'),
+      },
       //     // Special President Powers
       //     {
       //       path: 'eliminate-player',
