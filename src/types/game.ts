@@ -35,15 +35,6 @@ export enum Party {
   Liberal = 'liberal',
 }
 
-export enum Action {
-  Idle,
-  Lobby,
-  Voting,
-  PresidentPicking,
-  ChancellorPicking,
-  Killing
-}
-
 export type Vote = {
   userId: UserID,
   votedYes: boolean

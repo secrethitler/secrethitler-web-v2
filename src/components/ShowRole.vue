@@ -5,7 +5,7 @@
       @touchstart="show"
       @mouseup="hide"
       @touchend="hide"
-      class="text-center font-serif py-2 px-3 bg-white rounded shadow border border-red-500"
+      class="show-button text-center font-serif py-2 px-3 bg-white rounded shadow border border-red-500"
     >Hold to show role</button>
 
     <modal name="role" ref="modal">
@@ -52,5 +52,8 @@ export default class ShowRole extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
+.show-button {
+  user-select: none;
+}
 </style>

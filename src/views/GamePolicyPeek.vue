@@ -24,7 +24,7 @@
         <div v-if="policies.length > 0" class="flex justify-center py-4">
           <router-link
             class="btn shadow"
-            :to="{ name: 'info', params: { id: $route.params.id } }"
+            :to="goBack"
           >Back</router-link>
         </div>
       </div>
@@ -38,6 +38,8 @@ import Component from 'vue-class-component';
 import { mapGetters } from 'vuex';
 import peekPolicies from '../actions/peekPolicies';
 import { Round, Policy } from '../types/game';
+import navigateTo from '../utils/navigateTo';
+import Route from '../types/route';
 
 @Component({
   computed: mapGetters(['activeRound']),
@@ -60,6 +62,11 @@ export default class GamePolicyPeek extends Vue {
     } catch (e) {
       this.showing = false;
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  goBack() {
+    navigateTo(Route.GameInfo);
   }
 }
 </script>
