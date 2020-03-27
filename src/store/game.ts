@@ -23,6 +23,7 @@ export enum mutations {
   INC_ELECTION_TRACKER = 'incElectionTracker',
   RESET_ELECTION_TRACKER = 'resetElectionTracker',
   SET_ENACTED_POLICY = 'setEnactedPolicy',
+  SET_PEEKED_POLICIES = 'setPeekedPolicies',
   SET_GAME_WON = 'setGameWon'
 }
 
@@ -191,6 +192,10 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     [mutations.SET_GAME_WON](state: GameState, payload: GameWon) {
       state.gameOver = payload;
+    },
+
+    [mutations.SET_PEEKED_POLICIES](state: GameState, policies: Policy[]) {
+      state.rounds[state.activeRound].secret.policyPeek = policies;
     },
 
   },

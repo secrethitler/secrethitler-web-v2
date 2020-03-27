@@ -12,6 +12,7 @@ enum Route {
   GameWon = 'game.game-over',
   GameIsKilled = 'game.is-eliminated',
   GameSpecialElection = 'game.special-election',
+  GamePolicyPeek = 'game.policy-peek',
 }
 
 export default Route;

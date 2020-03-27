@@ -92,11 +92,11 @@ const routes = [
         name: Route.GameSpecialElection,
         component: () => import(/* webpackChunkName: "GameSpecialElection" */ './views/GameSpecialElection.vue'),
       },
-      //     {
-      //       path: 'policy-peek',
-      //       name: 'policy-peek',
-      //       component: () => import(/* webpackChunkName: "GamePolicyPeek" */ './views/GamePolicyPeek.vue'),
-      //     },
+      {
+        path: 'policy-peek',
+        name: Route.GamePolicyPeek,
+        component: () => import(/* webpackChunkName: "GamePolicyPeek" */ './views/GamePolicyPeek.vue'),
+      },
     ],
   },
 ];
