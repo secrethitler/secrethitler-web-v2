@@ -7,5 +7,5 @@ import Route from '@/types/route';
 export default function (event: ChancellorReceivePolicies) {
   store.commit(mutations.SET_CHANCELLOR_POLICIES, event.policies);
 
-  navigateTo(Route.GameInfo);
+  navigateTo(Route.GameChancellorPolicyPick);
 }

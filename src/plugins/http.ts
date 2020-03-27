@@ -5,7 +5,6 @@ import store from '@/store';
 
 const instance = axios.create({
   baseURL: 'https://api.secrethitler.tk',
-  // baseURL: 'https://geheimerdeutscher.tk/api',
   withCredentials: true,
 });
 

@@ -35,7 +35,7 @@
             >YOU</span>
 
             <span v-if="member.isCreator" class="ml-2">
-              <icon icon="crown" class="text-2xl text-yellow-600"></icon>
+              <StarIcon class="text-2xl text-yellow-600" title="Lobby Creator" alt="Lobby Creator" />
             </span>
           </li>
         </ul>
@@ -58,8 +58,12 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import startGame from '@/actions/startGame';
 import Component from 'vue-class-component';
+import { StarIcon } from 'vue-feather-icons';
 
 @Component({
+  components: {
+    StarIcon,
+  },
   computed: mapGetters(['connectedMembers', 'userId', 'isCreator']),
 })
 export default class GameLobby extends Vue {

@@ -2,8 +2,8 @@
   <transition name="modal">
     <div v-if="open" class="modal" :class="{ 'modal-open': open }">
       <div ref="modal" class="modal-inner relative inline-flex justify-center items-center">
-        <button @click="close" class="absolute top-0 right-0 p-3">
-          <icon icon="times" class="opacity-75" />
+        <button @click="close" class="absolute top-0 right-0 p-2">
+          <XIcon class="opacity-75" />
         </button>
         <div>
           <slot></slot>
@@ -16,8 +16,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import { mutations } from '@/store/modal';
+import { XIcon } from 'vue-feather-icons';
 
 export default {
+  components: {
+    XIcon,
+  },
+
   props: {
     name: {
       type: String,

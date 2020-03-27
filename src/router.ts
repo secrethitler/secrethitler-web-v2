@@ -19,78 +19,78 @@ const routes = [
   {
     path: '/create-game',
     name: Route.GameCreate,
-    component: () => import('@/views/GameCreate.vue'),
+    component: () => import(/* webpackChunkName: "GameCreate" */ '@/views/GameCreate.vue'),
   },
   {
     path: '/join-game',
     name: Route.GameJoin,
-    component: () => import('@/views/GameJoin.vue'),
+    component: () => import(/* webpackChunkName: "GameJoin" */ '@/views/GameJoin.vue'),
   },
   {
     path: '/game/:id',
     name: 'game',
-    component: () => import('@/views/Game.vue'),
+    component: () => import(/* webpackChunkName: "Game" */ '@/views/Game.vue'),
     children: [
       {
         path: 'lobby',
         name: Route.GameLobby,
-        component: () => import('@/views/GameLobby.vue'),
+        component: () => import(/* webpackChunkName: "GameLobby" */ '@/views/GameLobby.vue'),
       },
       {
         path: 'info',
         name: Route.GameInfo,
-        component: () => import('@/views/GameInfo.vue'),
+        component: () => import(/* webpackChunkName: "GameInfo" */ '@/views/GameInfo.vue'),
       },
       {
         path: 'nominate',
         name: Route.GameNominate,
-        component: () => import('@/views/GameNominate.vue'),
+        component: () => import(/* webpackChunkName: "GameNominate" */ '@/views/GameNominate.vue'),
       },
       {
         path: 'vote',
         name: Route.GameVote,
-        component: () => import('@/views/GameVote.vue'),
+        component: () => import(/* webpackChunkName: "GameVote" */ '@/views/GameVote.vue'),
       },
       {
         path: 'vote-result',
         name: Route.GameVoteResult,
-        component: () => import('./views/GameVoteResult.vue'),
+        component: () => import(/* webpackChunkName: "GameVoteResult" */ './views/GameVoteResult.vue'),
       },
       {
         path: 'president-select-policy',
         name: Route.GamePresidentPolicyPick,
-        component: () => import('./views/GamePresidentSelectPolicy.vue'),
+        component: () => import(/* webpackChunkName: "GamePresidentSelectPolicy" */ './views/GamePresidentSelectPolicy.vue'),
       },
       {
         path: 'chancellor-select-policy',
         name: Route.GameChancellorPolicyPick,
-        component: () => import('./views/GameChancellorSelectPolicy.vue'),
+        component: () => import(/* webpackChunkName: "GameChancellorSelectPolicy" */ './views/GameChancellorSelectPolicy.vue'),
       },
       //     {
       //       path: 'game-over',
       //       name: 'game-over',
-      //       component: require('./views/GameWon.vue').default,
+      //       component: () => import(/* webpackChunkName: "GameWon" */ './views/GameWon.vue'),
       //     },
       //     // Special President Powers
       //     {
       //       path: 'eliminate-player',
       //       name: 'eliminate-player',
-      //       component: require('./views/GameKillPlayer.vue').default,
+      //       component: () => import(/* webpackChunkName: "GameKillPlayer" */ './views/GameKillPlayer.vue'),
       //     },
       //     {
       //       path: 'investigate',
       //       name: 'investigate',
-      //       component: require('./views/GameInvestigate.vue').default,
+      //       component: () => import(/* webpackChunkName: "GameInvestigate" */ './views/GameInvestigate.vue'),
       //     },
       //     {
       //       path: 'is-eliminated',
       //       name: 'is-eliminated',
-      //       component: require('./views/GameIsKilled.vue').default,
+      //       component: () => import(/* webpackChunkName: "GameIsKilled" */ './views/GameIsKilled.vue'),
       //     },
       //     {
       //       path: 'policy-peek',
       //       name: 'policy-peek',
-      //       component: require('./views/GamePolicyPeek.vue').default,
+      //       component: () => import(/* webpackChunkName: "GamePolicyPeek" */ './views/GamePolicyPeek.vue'),
       //     },
     ],
   },

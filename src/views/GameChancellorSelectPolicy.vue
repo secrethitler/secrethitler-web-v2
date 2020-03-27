@@ -41,7 +41,7 @@ export default class GameChancellorSelectPolicy extends Vue {
   activeRound!: Round;
 
   get policies(): Policy[] {
-    return this.activeRound.secret.chancellorPolicies;
+    return this.$store.getters.activeRound.secret.chancellorPolicies;
   }
 
   enact(index: number) {
