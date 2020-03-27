@@ -87,6 +87,11 @@ const routes = [
         name: Route.GameIsKilled,
         component: () => import(/* webpackChunkName: "GameIsKilled" */ './views/GameIsKilled.vue'),
       },
+      {
+        path: 'special-election',
+        name: Route.GameSpecialElection,
+        component: () => import(/* webpackChunkName: "GameSpecialElection" */ './views/GameSpecialElection.vue'),
+      },
       //     {
       //       path: 'policy-peek',
       //       name: 'policy-peek',
