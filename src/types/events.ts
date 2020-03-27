@@ -19,11 +19,17 @@ export enum Events {
   PolicyEnacted = 'policyEnacted',
   PlayerKilled = 'playerKilled',
   ElectionTracker = 'electionTracker',
+  ResetElectionTracker = 'resetElectionTracker',
 
   PolicyPeek = 'policyPeek',
   ExecutePlayer = 'executePlayer',
   LoyaltyInvestigation = 'loyaltyInvestigation',
   SpecialElection = 'specialElection',
+
+  VetoPossible = 'vetoPossible',
+  RequestVeto = 'requestedVeto',
+  VetoAccepted = 'vetoAccepted',
+  VetoDenied = 'vetoDenied'
 }
 
 // channel
@@ -92,6 +98,11 @@ export type ElectionTracker = {
 }
 
 // channel
+export type ResetElectionTracker = {
+
+}
+
+// channel
 export type PolicyEnacted = {
   policy: Policy
 }
@@ -113,5 +124,25 @@ export type LoyaltyInvestigation = {
 
 // private
 export type SpecialElection = {
+
+}
+
+// private
+export type VetoPossible = {
+
+}
+
+// private
+export type RequestVeto = {
+
+}
+
+// channel
+export type VetoAccepted = {
+
+}
+
+// private
+export type VetoDenied = {
 
 }

@@ -22,6 +22,10 @@ import chancellorElected from './chancellorElected';
 import policyEnacted from './policyEnacted';
 import gameWon from './gameWon';
 import playerKilled from './playerKilled';
+import vetoPossible from './vetoPossible';
+import requestVeto from './requestVeto';
+import vetoDenied from './vetoDenied';
+import vetoAccepted from './vetoAccepted';
 
 interface Channels {
   channel: Channel,
@@ -42,6 +46,9 @@ export const registerHandlers = (channels: Channels) => {
   priv.bind(Events.SpecialElection, specialElection);
   priv.bind(Events.LoyaltyInvestigation, loyaltyInvestigation);
   priv.bind(Events.GameWon, gameWon);
+  priv.bind(Events.VetoPossible, vetoPossible);
+  priv.bind(Events.RequestVeto, requestVeto);
+  priv.bind(Events.VetoDenied, vetoDenied);
 
   // Global handlers
   channel.bind(Events.NextRound, nextRound);
@@ -51,6 +58,7 @@ export const registerHandlers = (channels: Channels) => {
   channel.bind(Events.PolicyEnacted, policyEnacted);
   channel.bind(Events.ElectionTracker, electionTracker);
   channel.bind(Events.PlayerKilled, playerKilled);
+  channel.bind(Events.VetoAccepted, vetoAccepted);
 };
 
 export const connectChannels = (channelName: ChannelName, userId: UserID): Channels => {

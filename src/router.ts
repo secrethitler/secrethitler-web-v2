@@ -97,6 +97,11 @@ const routes = [
         name: Route.GamePolicyPeek,
         component: () => import(/* webpackChunkName: "GamePolicyPeek" */ '@/views/GamePolicyPeek.vue'),
       },
+      {
+        path: 'veto-requested',
+        name: Route.GameVetoRequested,
+        component: () => import(/* webpackChunkName: "GameVetoRequested" */ '@/views/GameVetoRequested.vue'),
+      },
     ],
   },
 ];

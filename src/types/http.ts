@@ -103,6 +103,27 @@ export type RoundNextResponse = {
   president_id: UserID
 }
 
+// POST: /round/request-veto
+export type RoundRequestVetoRequest = {
+  channelName: ChannelName,
+  userId: UserID,
+}
+
+export type RoundRequestVetoResponse = {
+
+}
+
+// POST: /round/veto
+export type RoundVetoRequest = {
+  accepted: boolean,
+  channelName: ChannelName,
+  userId: UserID,
+}
+
+export type RoundVetoResponse = {
+
+}
+
 // POST: /round/special-election
 export type RoundSpecialElectionRequest = {
   channelName: ChannelName,

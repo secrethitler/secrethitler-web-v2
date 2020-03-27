@@ -45,6 +45,7 @@ type Secret = {
   presidentPolicies: Policy[],
   chancellorPolicies: Policy[],
   policyPeek: Policy[],
+  vetoPossible: boolean
 }
 
 export type Round = {

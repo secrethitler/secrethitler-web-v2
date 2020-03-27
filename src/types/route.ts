@@ -15,6 +15,7 @@ enum Route {
   GamePolicyPeek = 'game.policy-peek',
   GameKillPlayer = 'game.kill-player',
   GameInvestigate = 'game.investigate',
+  GameVetoRequested = 'game.veto-requested',
 }
 
 export default Route;

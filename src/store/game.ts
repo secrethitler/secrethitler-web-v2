@@ -2,7 +2,7 @@ import { Module } from 'vuex';
 import {
   GameState, StoreRootState, Member, Round, Role, UserID, Vote, Policy,
 } from '@/types/game';
-import { GameCreateResponse, GameJoinResponse } from '@/types/http';
+import { GameJoinResponse } from '@/types/http';
 import { GameStart, GameWon } from '@/types/events';
 import Route from '@/types/route';
 
@@ -24,7 +24,8 @@ export enum mutations {
   RESET_ELECTION_TRACKER = 'resetElectionTracker',
   SET_ENACTED_POLICY = 'setEnactedPolicy',
   SET_PEEKED_POLICIES = 'setPeekedPolicies',
-  SET_GAME_WON = 'setGameWon'
+  SET_GAME_WON = 'setGameWon',
+  SET_VETO_POSSIBLE = 'setVetoPossible'
 }
 
 const gameStore: Module<GameState, StoreRootState> = {
@@ -145,6 +146,8 @@ const gameStore: Module<GameState, StoreRootState> = {
           presidentPolicies: [],
           // The policies the president can peek.
           policyPeek: [],
+          // If a veto is possible.
+          vetoPossible: false,
         },
       });
     },
@@ -196,6 +199,10 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     [mutations.SET_PEEKED_POLICIES](state: GameState, policies: Policy[]) {
       state.rounds[state.activeRound].secret.policyPeek = policies;
+    },
+
+    [mutations.SET_VETO_POSSIBLE](state: GameState) {
+      state.rounds[state.activeRound].secret.vetoPossible = true;
     },
 
   },

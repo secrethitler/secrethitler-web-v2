@@ -22,10 +22,10 @@
         </div>
 
         <div v-if="policies.length > 0" class="flex justify-center py-4">
-          <router-link
+          <button
             class="btn shadow"
-            :to="goBack"
-          >Back</router-link>
+            @click="goBack"
+          >Back</button>
         </div>
       </div>
     </div>

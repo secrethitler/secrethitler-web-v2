@@ -41,10 +41,10 @@
           </div>
 
           <div class="flex justify-center py-4">
-            <router-link
+            <button
               class="btn shadow"
-              :to="{ name: 'info', params: { id: $route.params.id } }"
-            >Back</router-link>
+              @click="goBack"
+            >Back</button>
           </div>
         </div>
       </div>
@@ -58,6 +58,8 @@ import { mapGetters } from 'vuex';
 import Component from 'vue-class-component';
 import investigatePlayer from '@/actions/investigatePlayer';
 import { Party, Member, UserID } from '../types/game';
+import navigateTo from '../utils/navigateTo';
+import Route from '../types/route';
 
 @Component({
   computed: mapGetters(['members', 'userId']),
@@ -85,6 +87,11 @@ export default class GameInvestigate extends Vue {
     } catch (e) {
       this.investigating = false;
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  goBack() {
+    navigateTo(Route.GameInfo);
   }
 }
 </script>

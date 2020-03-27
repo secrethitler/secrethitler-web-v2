@@ -18,6 +18,12 @@
             </div>
           </div>
         </div>
+
+        <div v-if="vetoPossible" class="mt-8 flex justif-center">
+          <button class="btn shadow" @click="requestVeto">
+            Request Veto
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +34,7 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import Component from 'vue-class-component';
 import chancellorPolicyPick from '@/actions/chancellorPolicyPick';
+import veto from '@/actions/requestVeto';
 import { Round, Policy } from '../types/game';
 
 @Component({
@@ -41,7 +48,11 @@ export default class GameChancellorSelectPolicy extends Vue {
   activeRound!: Round;
 
   get policies(): Policy[] {
-    return this.$store.getters.activeRound.secret.chancellorPolicies;
+    return this.activeRound.secret.chancellorPolicies;
+  }
+
+  get vetoPossible(): boolean {
+    return this.activeRound.secret.vetoPossible;
   }
 
   enact(index: number) {
@@ -58,6 +69,11 @@ export default class GameChancellorSelectPolicy extends Vue {
     } catch (e) {
       this.discarding = false;
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  requestVeto() {
+    veto();
   }
 }
 </script>

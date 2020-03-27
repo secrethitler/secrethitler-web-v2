@@ -2,8 +2,7 @@
   <div class="election-tracker absolute bottom-0 left-0 right-0">
     <div class="relative">
       <div class="cross" :style="getStyle">
-        <span></span>
-        <span></span>
+        <XIcon class="text-red-700" />
       </div>
     </div>
   </div>
@@ -11,13 +10,17 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { XIcon } from 'vue-feather-icons';
 
 export default {
+  components: {
+    XIcon,
+  },
   computed: {
     ...mapGetters(['electionTracker']),
     getStyle() {
       return {
-        left: `${this.electionTracker * 26.25 + 3.5}%`,
+        left: `${this.electionTracker * 26.25 + 4.4}%`,
       };
     },
   },
@@ -32,11 +35,9 @@ export default {
   padding-bottom: 3%;
 
   .cross {
-    height: 1rem;
-    width: 1rem;
     box-sizing: border-box;
     @apply p-1 absolute;
-    top: -0.5rem;
+    top: -1.2rem;
   }
 
   span {

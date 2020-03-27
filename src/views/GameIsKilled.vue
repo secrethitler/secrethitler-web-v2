@@ -2,15 +2,17 @@
   <div>
     <page-title>You have been executed</page-title>
 
-    <div class="container flex justify-center py-16 px-8">
+    <div class="container flex flex-col justify-start items-center py-16 px-8">
+
       <div class="max-w-4xl">
         <img src="@/assets/skull.png" alt="Skull" />
       </div>
+
       <div class="flex justify-center py-4">
-        <router-link
+        <button
           class="btn shadow"
-          :to="goBack"
-        >Back</router-link>
+          @click="goBack"
+        >Back</button>
       </div>
     </div>
   </div>
