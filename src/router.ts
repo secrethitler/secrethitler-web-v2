@@ -82,11 +82,11 @@ const routes = [
       //       name: 'investigate',
       //       component: () => import(/* webpackChunkName: "GameInvestigate" */ './views/GameInvestigate.vue'),
       //     },
-      //     {
-      //       path: 'is-eliminated',
-      //       name: 'is-eliminated',
-      //       component: () => import(/* webpackChunkName: "GameIsKilled" */ './views/GameIsKilled.vue'),
-      //     },
+      {
+        path: 'is-eliminated',
+        name: Route.GameIsKilled,
+        component: () => import(/* webpackChunkName: "GameIsKilled" */ './views/GameIsKilled.vue'),
+      },
       //     {
       //       path: 'policy-peek',
       //       name: 'policy-peek',

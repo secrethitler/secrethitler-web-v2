@@ -59,6 +59,7 @@ const gameStore: Module<GameState, StoreRootState> = {
     electionTracker: state => state.electionTracker,
     allMembers: state => state.members,
     gameOver: state => state.gameOver,
+    isDead: (state, getters) => state.killed.includes(getters.userId),
 
     // Ignore killed members.
     members: (state: GameState) => state.members.filter(member => state.killed.includes(member.userId) === false),
