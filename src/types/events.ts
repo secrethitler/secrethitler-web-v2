@@ -112,6 +112,6 @@ export type LoyaltyInvestigation = {
 }
 
 // private
-export type specialElection = {
+export type SpecialElection = {
 
 }
