@@ -84,6 +84,11 @@ export default class GameInvestigate extends Vue {
     try {
       const { party } = await investigatePlayer(id);
       this.membership = party;
+
+      this.$gtag.event('game', {
+        event_category: 'investigate',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.investigating = false;
     }

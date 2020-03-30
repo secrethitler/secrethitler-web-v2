@@ -46,8 +46,12 @@ export default class GameCreate extends Vue {
 
   userName = '';
 
-  handleSubmit() {
-    createGame(this.userName);
+  async handleSubmit() {
+    await createGame(this.userName);
+
+    this.$gtag.event('game', {
+      event_category: 'create',
+    });
   }
 }
 </script>

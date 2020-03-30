@@ -60,7 +60,7 @@ export default class GameJoin extends Vue {
 
   joining = false;
 
-  handleSubmit() {
+  async handleSubmit() {
     if (this.joining) {
       return;
     }
@@ -68,7 +68,12 @@ export default class GameJoin extends Vue {
     this.joining = true;
 
     try {
-      joinGame(this.userName, this.channelName);
+      await joinGame(this.userName, this.channelName);
+
+      this.$gtag.event('game', {
+        event_category: 'join',
+        event_label: this.channelName,
+      });
     } catch (e) {
       this.error = e;
       this.joining = false;

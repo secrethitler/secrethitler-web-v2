@@ -61,11 +61,16 @@ export default class GameChancellorSelectPolicy extends Vue {
     this.discard(this.policies[discardedIndex]);
   }
 
-  discard(discardedPolicy: Policy) {
+  async discard(discardedPolicy: Policy) {
     this.discarding = true;
 
     try {
-      chancellorPolicyPick(discardedPolicy);
+      await chancellorPolicyPick(discardedPolicy);
+
+      this.$gtag.event('game', {
+        event_category: 'chancellor-pick-policy',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.discarding = false;
     }

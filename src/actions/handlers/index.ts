@@ -26,6 +26,7 @@ import vetoPossible from './vetoPossible';
 import requestVeto from './requestVeto';
 import vetoDenied from './vetoDenied';
 import vetoAccepted from './vetoAccepted';
+import resetElectionTracker from './resetElectionTracker';
 
 interface Channels {
   channel: Channel,
@@ -57,6 +58,7 @@ export const registerHandlers = (channels: Channels) => {
   channel.bind(Events.ChancellorElected, chancellorElected);
   channel.bind(Events.PolicyEnacted, policyEnacted);
   channel.bind(Events.ElectionTracker, electionTracker);
+  channel.bind(Events.ResetElectionTracker, resetElectionTracker);
   channel.bind(Events.PlayerKilled, playerKilled);
   channel.bind(Events.VetoAccepted, vetoAccepted);
 };

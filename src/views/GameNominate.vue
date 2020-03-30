@@ -44,8 +44,13 @@ export default class GameNominate extends Vue {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  nominate(id: UserID) {
-    nominateChancellor(id);
+  async nominate(id: UserID) {
+    await nominateChancellor(id);
+
+    this.$gtag.event('game', {
+      event_category: 'nominate',
+      event_label: this.$store.getters.channelName,
+    });
   }
 }
 </script>

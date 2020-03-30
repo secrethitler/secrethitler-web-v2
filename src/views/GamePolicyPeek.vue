@@ -55,10 +55,15 @@ export default class GamePolicyPeek extends Vue {
     return this.activeRound.secret.policyPeek;
   }
 
-  getPeekedPolicies() {
+  async getPeekedPolicies() {
     this.showing = true;
     try {
-      peekPolicies();
+      await peekPolicies();
+
+      this.$gtag.event('game', {
+        event_category: 'policy-peek',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.showing = false;
     }

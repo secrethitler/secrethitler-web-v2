@@ -118,8 +118,13 @@ export default class GameInfo extends Vue {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  handleNextRound() {
-    nextRound();
+  async handleNextRound() {
+    await nextRound();
+
+    this.$gtag.event('game', {
+      event_category: 'next-round',
+      event_label: this.$store.getters.channelName,
+    });
   }
 }
 </script>

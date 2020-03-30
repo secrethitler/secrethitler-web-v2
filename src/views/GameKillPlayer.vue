@@ -52,10 +52,15 @@ export default class GameKillPlayer extends Vue {
     return this.eliminating ? ['opacity-50', 'pointer-events-none'] : [];
   }
 
-  eliminate(id: UserID) {
+  async eliminate(id: UserID) {
     this.eliminating = true;
     try {
-      executePlayer(id);
+      await executePlayer(id);
+
+      this.$gtag.event('game', {
+        event_category: 'kill',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.eliminating = false;
     }

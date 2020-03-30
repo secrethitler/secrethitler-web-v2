@@ -47,10 +47,15 @@ export default class GameSpecialElection extends Vue {
     return this.members.filter(member => member.userId !== this.userId);
   }
 
-  elect(nextPresidentId: number) {
+  async elect(nextPresidentId: number) {
     this.electing = true;
     try {
-      specialElection(nextPresidentId);
+      await specialElection(nextPresidentId);
+
+      this.$gtag.event('game', {
+        event_category: 'special-election',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.electing = false;
     }

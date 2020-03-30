@@ -89,7 +89,13 @@ export default class GameVote extends Vue {
     this.disable = true;
     try {
       await voteChancellor(votedYes);
+
       this.voted = votedYes ? UserVote.Yes : UserVote.No;
+
+      this.$gtag.event('game', {
+        event_category: 'vote',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.disable = false;
     }

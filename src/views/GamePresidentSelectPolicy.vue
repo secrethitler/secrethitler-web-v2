@@ -54,11 +54,16 @@ export default class GamePresidentSelectPolicy extends Vue {
     return this.activeRound.secret.presidentPolicies;
   }
 
-  discard(policy: Policy) {
+  async discard(policy: Policy) {
     this.discarding = true;
 
     try {
-      presidentPolicyPick(policy);
+      await presidentPolicyPick(policy);
+
+      this.$gtag.event('game', {
+        event_category: 'president-pick-policy',
+        event_label: this.$store.getters.channelName,
+      });
     } catch (e) {
       this.discarding = false;
     }
