@@ -45,7 +45,7 @@ export default class GameKillPlayer extends Vue {
   userId!: UserID;
 
   get killable() {
-    return this.members.filter(member => member.userId !== this.userId);
+    return this.members.filter((member) => member.userId !== this.userId);
   }
 
   get getClasses() {

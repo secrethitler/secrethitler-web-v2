@@ -51,26 +51,26 @@ const gameStore: Module<GameState, StoreRootState> = {
   } as GameState,
 
   getters: {
-    userId: state => state.userId,
-    token: state => state.token,
-    channelName: state => state.channelName,
-    partyMembers: state => state.partyMembers,
-    connectedMembers: state => state.connectedMembers,
-    rounds: state => state.rounds,
-    roleName: state => state.roleName,
-    electionTracker: state => state.electionTracker,
-    allMembers: state => state.members,
-    gameOver: state => state.gameOver,
+    userId: (state) => state.userId,
+    token: (state) => state.token,
+    channelName: (state) => state.channelName,
+    partyMembers: (state) => state.partyMembers,
+    connectedMembers: (state) => state.connectedMembers,
+    rounds: (state) => state.rounds,
+    roleName: (state) => state.roleName,
+    electionTracker: (state) => state.electionTracker,
+    allMembers: (state) => state.members,
+    gameOver: (state) => state.gameOver,
     isDead: (state, getters) => state.killed.includes(getters.userId),
 
     // Ignore killed members.
-    members: (state: GameState) => state.members.filter(member => state.killed.includes(member.userId) === false),
+    members: (state: GameState) => state.members.filter((member) => state.killed.includes(member.userId) === false),
 
     you(state: GameState): Member | undefined {
-      return state.members.find(member => member.userId === state.userId);
+      return state.members.find((member) => member.userId === state.userId);
     },
     creator(state: GameState): Member | undefined {
-      return state.members.find(member => member.userId === state.creatorId);
+      return state.members.find((member) => member.userId === state.creatorId);
     },
     isCreator(state: GameState): boolean {
       return state.userId === state.creatorId;
@@ -82,10 +82,10 @@ const gameStore: Module<GameState, StoreRootState> = {
       return state.rounds[state.activeRound];
     },
     president(state: GameState, getters): Member | undefined {
-      return state.members.find(member => member.userId === getters.activeRound?.presidentId);
+      return state.members.find((member) => member.userId === getters.activeRound?.presidentId);
     },
     chancellor(state: GameState, getters): Member | undefined {
-      return state.members.find(member => member.userId === getters.activeRound?.chancellorId);
+      return state.members.find((member) => member.userId === getters.activeRound?.chancellorId);
     },
   },
 
@@ -154,7 +154,7 @@ const gameStore: Module<GameState, StoreRootState> = {
 
     [mutations.ADD_VOTE](state: GameState, payload: Vote) {
       // Check if vote already exists.
-      if (state.rounds[state.activeRound].votes.find(vote => vote.userId === payload.userId) !== undefined) {
+      if (state.rounds[state.activeRound].votes.find((vote) => vote.userId === payload.userId) !== undefined) {
         return;
       }
 

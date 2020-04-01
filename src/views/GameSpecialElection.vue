@@ -44,7 +44,7 @@ export default class GameSpecialElection extends Vue {
   userId!: UserID;
 
   get electable() {
-    return this.members.filter(member => member.userId !== this.userId);
+    return this.members.filter((member) => member.userId !== this.userId);
   }
 
   async elect(nextPresidentId: number) {

@@ -21,7 +21,7 @@ const modal: Module<ModalState, StoreRootState> = {
   },
 
   getters: {
-    activeModal: state => state.activeModal,
+    activeModal: (state) => state.activeModal,
   },
 };
 

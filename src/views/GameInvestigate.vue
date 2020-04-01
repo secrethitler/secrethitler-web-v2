@@ -76,7 +76,7 @@ export default class GameInvestigate extends Vue {
   Party = Party;
 
   get investigateable() {
-    return this.members.filter(member => member.userId !== this.userId);
+    return this.members.filter((member) => member.userId !== this.userId);
   }
 
   async investigate(id: UserID) {
